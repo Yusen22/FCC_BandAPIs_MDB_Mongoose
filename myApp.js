@@ -64,6 +64,16 @@ app.get('/now', function(req, res, next) {
 })
 
 
+// echo server that takes word from params and sends back as json 
+
+app.get('/:word/echo', (req, res) => {
+    const { word } = req.params
+    res.json({
+        echo: word
+    })
+})
+
+
 
 
 
