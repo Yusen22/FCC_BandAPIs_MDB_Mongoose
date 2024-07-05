@@ -1,5 +1,6 @@
 let express = require('express');
 let app = express();
+require('dotenv').config()
 
 console.log('Hello World!')
 
@@ -10,6 +11,15 @@ console.log('Hello World!')
 // })
 
 
+// Middleware logger for console log method, path and ip address
+
+app.use(function logger(req, res, next) {
+    const string = req.method + " " + req.path + " - " + req.ip
+    console.log(string);
+    next();
+})
+
+
 // Sends file as response when GET request given to '/' path 
 
 const absolutePath = __dirname + '/views/index.html'
@@ -18,12 +28,29 @@ app.get('/', (req, res) => {
     res.sendFile(absolutePath)
 })
 
+
+
 // Middleware function to serve static files in public folder 
 
 app.use('/public', express.static(__dirname + '/public'))
 
 
 
+// Serves json object at the /json endpoint route 
+// uses .env to set message style with variable 
+
+
+app.get('/json', (req, res) => {
+
+    let mymessage = "Hello json"
+
+    if(process.env.MESSAGE_STYLE === 'uppercase') {
+        mymessage = mymessage.toUpperCase()
+    }
+    res.json({ 
+        message: mymessage
+    })
+});
 
 
 
@@ -57,4 +84,9 @@ app.use('/public', express.static(__dirname + '/public'))
 
 
 
- module.exports = app;
+
+
+
+
+
+module.exports = app;
