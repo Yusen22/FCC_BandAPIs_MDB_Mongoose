@@ -52,6 +52,16 @@ app.get('/json', (req, res) => {
     })
 });
 
+// Middleware function that gives json string of time on /now endpoint
+
+app.get('/now', function(req, res, next) {
+    req.time = new Date().toString()
+    next();
+},function(req, res) {
+    res.json({
+        time: req.time
+    })
+})
 
 
 
