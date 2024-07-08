@@ -23,7 +23,7 @@ app.use(function logger(req, res, next) {
 
 
 // Middleware for parsing bpdy from POST request
-
+const bodyParserfunction =
 app.use(bodyParser.urlencoded({extended: false}))
 
 
@@ -91,9 +91,29 @@ app.get('/name', (req, res) => {
 })
 })
 
+// Post request that takes form data at /name using previous query string 
+// and post the response as JSON
+
+app.post('/name', (req, res) => {
+    let string = req.body.first + " " + req.body.last;
+    res.json({
+        name: string
+    })
+})
 
 
 
+
+
+// Tip: There are several other http methods other than GET and POST. And by convention there is a correspondence between the http verb, and the operation you are going to execute on the server. The conventional mapping is:
+
+// POST (sometimes PUT) - Create a new resource using the information sent with the request,
+
+// GET - Read an existing resource without modifying it,
+
+// PUT or PATCH (sometimes POST) - Update a resource using the data sent,
+
+// DELETE - Delete a resource.
 
 
 
