@@ -1,4 +1,5 @@
 let express = require('express');
+const res = require('express/lib/response');
 let app = express();
 require('dotenv').config()
 
@@ -71,6 +72,17 @@ app.get('/:word/echo', (req, res) => {
     res.json({
         echo: word
     })
+})
+
+// How to create query strings
+
+app.get('/name', (req, res) => {
+    var firstName = req.query.first;
+    var lastName = req.query.last;
+
+    res.json({
+    name: `${firstName} ${lastName}`
+})
 })
 
 
