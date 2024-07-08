@@ -2,6 +2,7 @@ let express = require('express');
 const res = require('express/lib/response');
 let app = express();
 require('dotenv').config()
+let bodyParser = require('body-parser')
 
 console.log('Hello World!')
 
@@ -19,6 +20,11 @@ app.use(function logger(req, res, next) {
     console.log(string);
     next();
 })
+
+
+// Middleware for parsing bpdy from POST request
+
+app.use(bodyParser.urlencoded({extended: false}))
 
 
 // Sends file as response when GET request given to '/' path 
